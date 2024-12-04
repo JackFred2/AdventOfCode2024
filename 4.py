@@ -48,5 +48,20 @@ def part1():
     print(count)
 
 
+def part2():
+    count = 0
+
+    for row in range(1, len(map) - 1):
+        for col in range(1, len(map[row]) - 1):
+            if map[row][col] == "A":
+                up_left = {map[row + 1][col + 1], map[row - 1][col - 1]}
+                up_right = {map[row + 1][col - 1], map[row - 1][col + 1]}
+
+                if {"S", "M"} == up_left == up_right:
+                    count += 1
+
+    print(count)
+
 
 part1()
+part2()
