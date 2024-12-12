@@ -69,7 +69,7 @@ def part2():
 
         for point in region:
 
-            # outside corner(s)
+            # outside corner(s); check different neighbours and (unless a special case of two on either side) precompute
             different_neighbours = [n for n in point.neighbours() if n not in grid or grid[n] != char]
             match len(different_neighbours):
                 case 4:
@@ -80,6 +80,8 @@ def part2():
                     if different_neighbours[0].x != different_neighbours[1].x and different_neighbours[0].y != different_neighbours[1].y:
                         corner_count += 1
 
+            # inside corners; for each pair of orthogonal direction check if they are the same as our char but that the
+            # diagonal isn't
             for offset in [Point(1, 1), Point(1, -1), Point(-1, -1), Point(-1, 1)]:
                 a = point + (offset.x, 0)
                 b = point + (0, offset.y)
