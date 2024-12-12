@@ -1,6 +1,6 @@
 import itertools
 
-from lib.points import Point
+from utils.points import Point
 
 grid: list[list[int]] = []
 
