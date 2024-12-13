@@ -27,6 +27,7 @@ with open("inputs/13.txt") as f:
             raise ValueError("Invalid input", machine_str, button_a, button_b, prize)
 
 
+# floating point issues
 def is_whole(value: float) -> bool:
     eps = 0.0001
 
@@ -36,18 +37,21 @@ def is_whole(value: float) -> bool:
 # if the offsets aren't a factor of each other (thankfully they aren't) theres only 0 or 1 solutions
 # we translate the goal from this space back to unit space (regular coordinates idk the correct term)
 # if whole we get a direction solution from the x and y coords
-# only worry about rounding issues because floats
 def work(offset = 0):
     total = 0
 
     for machine in machines:
         (a, b), (c, d) = machine.button_a, machine.button_b
+
+        # inverse matrix
         det = 1 / (a * d - b * c)
-        inverse_matrix = ((d * det, -b * det), (-c * det, a * det))
+        a_i, b_i, c_i, d_i = d * det, -b * det, -c * det, a * det
+
         prize_x = machine.prize[0] + offset
         prize_y = machine.prize[1] + offset
-        x = prize_x * inverse_matrix[0][0] + prize_y * inverse_matrix[1][0]
-        y = prize_x * inverse_matrix[0][1] + prize_y * inverse_matrix[1][1]
+
+        x = prize_x * a_i + prize_y * c_i
+        y = prize_x * b_i + prize_y * d_i
 
         if is_whole(x) and is_whole(y):
             total += 3 * round(x) + round(y)
