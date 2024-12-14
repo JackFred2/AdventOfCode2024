@@ -15,19 +15,45 @@ class Point:
         elif type(other) == tuple:
             return Point(self.x + other[0], self.y + other[1])
         else:
-            raise ValueError("Added point and not a point/tuple", type(other))
+            return NotImplemented
 
     def __sub__(self, other):
         if type(other) == Point:
             return Point(self.x - other.x, self.y - other.y)
         else:
-            raise ValueError("Added point and not a point")
+            return NotImplemented
+
+    def __mul__(self, other):
+        if type(other) == int:
+            return Point(self.x * other, self.y * other)
+        else:
+            return NotImplemented
+
+    def __floordiv__(self, other):
+        if type(other) == int:
+            return Point(self.x // other, self.y // other)
+        else:
+            return NotImplemented
+
+    def __mod__(self, other):
+        if type(other) == int:
+            return Point(self.x % other, self.y % other)
+        elif type(other) == Point:
+            return Point(self.x % other.x, self.y % other.y)
+        else:
+            return NotImplemented
 
     def __eq__(self, other):
         return type(other) == Point and self.x == other.x and self.y == other.y
 
     def __hash__(self):
         return hash((self.x, self.y))
+
+    def sign(self):
+        x = int(math.copysign(1, self.x))
+        y = int(math.copysign(1, self.y))
+
+        return Point(x, y)
 
     def neighbours(self):
         return [
