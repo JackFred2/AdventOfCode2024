@@ -1,4 +1,6 @@
 import math
+from shelve import Shelf
+from typing import Self
 
 
 class Point:
@@ -45,6 +47,9 @@ class Point:
         else:
             return NotImplemented
 
+    def __neg__(self):
+        return Point(-self.x, -self.y)
+
     def __eq__(self, other):
         return type(other) == Point and self.x == other.x and self.y == other.y
 
@@ -70,4 +75,8 @@ class Point:
 
     def manhattan_distance(self, other) -> int:
         return abs(self.x - other.x) + abs(self.y - other.y)
+
+    @classmethod
+    def cardinal(cls) -> list[Self]:
+        return Point(0, 0).neighbours()
 
