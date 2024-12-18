@@ -122,7 +122,9 @@ def part2():
                 break
             path_as_set = set(path)
 
-    print(grid[i - 1])
+    problem = grid[i - 1]
+
+    print(str(problem.x) + "," + str(problem.y))
 
 
 part1()
