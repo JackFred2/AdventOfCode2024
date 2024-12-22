@@ -28,6 +28,8 @@ class Point:
     def __mul__(self, other):
         if type(other) == int:
             return Point(self.x * other, self.y * other)
+        elif type(other) == tuple:
+            return Point(self.x * other[0], self.y * other[1])
         elif type(other) == Point:
             return Point(self.x * other.x, self.y * other.y)
         else:
